@@ -28,11 +28,20 @@ public class A3 {
         catch(Exception e){e.printStackTrace();}
     }
 
-    public static void addStudent(String firstName, String lastName, String email, Date enrollmentDate){
+    public static void addStudent(String first_Name, String last_Name, String email, Date enrollment_Date) {
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager.getConnection(url, user, password);
 
+            Statement statement = connection.createStatement();
+            String line = "INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES ('" + first_Name + "', '" + last_Name + "', '" + email + "', '" + enrollment_Date.toString() + "')";
+            int rowInserted = statement.executeUpdate(line);
+            if (rowInserted > 0) {System.out.println("A new student was inserted successfully!");}
+        }
+        catch (Exception e) {e.printStackTrace();}
     }
 
-
+   
     public static void main(String[] args){
         try{
             Class.forName("org.postgresql.Driver");
@@ -54,7 +63,8 @@ public class A3 {
             System.out.print("Input a number: ");
             Scanner choice = new Scanner(System.in);
             value = choice.nextInt();
-
+            int student_Id;
+            String first_Name, last_Name, email, enrollment_Date;
             switch(value){
                 case 1:
                     getAllStudents();
@@ -62,21 +72,32 @@ public class A3 {
                 case 2:
                     System.out.print("Enter first name: ");
                     choice = new Scanner(System.in);
-                    String first_name = choice.nextLine();
+                    first_Name = choice.nextLine();
 
                     System.out.print("Enter last name: ");
                     choice = new Scanner(System.in);
-                    String last_name = choice.nextLine();
+                    last_Name = choice.nextLine();
 
                     System.out.print("Enter email: ");
                     choice = new Scanner(System.in);
-                    String email = choice.nextLine();
+                    email = choice.nextLine();
 
                     System.out.print("Enter enrollment date (Ex. 2024-01-01): ");
                     choice = new Scanner(System.in);
-                    String enrollment_date = choice.nextLine();
+                    enrollment_Date = choice.nextLine();
 
-                    addStudent(first_name, last_name, email, Date.valueOf(enrollment_date));
+                    addStudent(first_Name, last_Name, email, Date.valueOf(enrollment_Date));
+                    break;
+                case 3:
+                    System.out.print("Enter last name: ");
+                    choice = new Scanner(System.in);
+                    student_Id = choice.nextInt();
+
+                    System.out.print("Enter email: ");
+                    choice = new Scanner(System.in);
+                    email = choice.nextLine();
+
+                    updateStudentEmail(student_Id, email);
                     break;
                 case 5:
                     break;
