@@ -35,13 +35,25 @@ public class A3 {
 
             Statement statement = connection.createStatement();
             String line = "INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES ('" + first_Name + "', '" + last_Name + "', '" + email + "', '" + enrollment_Date.toString() + "')";
-            int rowInserted = statement.executeUpdate(line);
-            if (rowInserted > 0) {System.out.println("A new student was inserted successfully!");}
+            int inserted = statement.executeUpdate(line);
+            if (inserted > 0) {System.out.println("Entry inserted");}
         }
         catch (Exception e) {e.printStackTrace();}
     }
 
-   
+    public static void updateStudentEmail(int student_Id, String email){
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager.getConnection(url, user, password);
+
+            Statement statement = connection.createStatement();
+            String line = "UPDATE students SET email = '" + email + "' WHERE student_id = " + student_Id;
+            int updated = statement.executeUpdate(line);
+            if (updated > 0) {System.out.println("Email updated");}
+        }
+        catch (Exception e) {e.printStackTrace();}
+    }
+
     public static void main(String[] args){
         try{
             Class.forName("org.postgresql.Driver");
@@ -89,7 +101,7 @@ public class A3 {
                     addStudent(first_Name, last_Name, email, Date.valueOf(enrollment_Date));
                     break;
                 case 3:
-                    System.out.print("Enter last name: ");
+                    System.out.print("Enter student id: ");
                     choice = new Scanner(System.in);
                     student_Id = choice.nextInt();
 
