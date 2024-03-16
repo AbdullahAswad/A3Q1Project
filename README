@@ -1,0 +1,18 @@
+Name: Abdullah Aswad
+ID: 101228852
+
+Summary:
+a project implementing basic CRUD functionality to a Postgresql database using Java
+
+Assumptions:
+- JDE installed
+- IDE installed
+- JDBC available
+- Postgresql installed
+
+Steps:
+1. Create and populate database using queries found in Creation.txt
+2. clone this repository
+3. update the database connectivity values at the top of "A3.java" file
+4. compile and run the "A3.java" file
+5. follow the instructions the program provides in the console.
